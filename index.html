@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Berufsfeuerwehr Teamstadt</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin:0;
+        background-color: #f4f4f4;
+        color: #333;
+        transition: background-color 0.3s, color 0.3s;
+    }
+    header {
+        background-color: #d32f2f;
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
+    nav {
+        background-color: #b71c1c;
+        display: flex;
+        justify-content: center;
+    }
+    nav a {
+        color:white;
+        padding: 14px 20px;
+        text-decoration: none;
+    }
+    nav a:hover { background-color:#d32f2f; }
+    section {
+        padding:20px;
+        max-width:800px;
+        margin:auto;
+        background:white;
+        margin-top:20px;
+        border-radius:10px;
+        box-shadow:0px 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 { color: #d32f2f; }
+    footer { text-align:center; padding:15px; background-color:#b71c1c; color:white; margin-top:20px; }
+    .button { background-color:#d32f2f; color:white; padding:10px 20px; text-decoration:none; border-radius:5px; display:inline-block; margin-top:10px; }
+    .button:hover { background-color:#b71c1c; }
+    ul { list-style:none; padding:0; }
+    li { background:#f8d7da; margin-bottom:10px; padding:10px; border-radius:5px; }
+    /* Slider */
+    .slider { position: relative; max-width: 100%; margin: auto; }
+    .slides { display: none; width:100%; border-radius:10px; }
+    /* Countdown */
+    #countdown { font-size: 1.2em; color:#b71c1c; font-weight:bold; }
+    /* Dark Mode */
+    body.dark { background-color:#222; color:#eee; }
+    body.dark section { background:#333; }
+    body.dark li { background:#555; }
+    body.dark nav { background:#880000; }
+    body.dark header { background:#a00000; }
+    body.dark footer { background:#880000; }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Berufsfeuerwehr Teamstadt</h1>
+    <p>Wir sind immer für die Sicherheit unserer Stadt im Einsatz!</p>
+    <button onclick="toggleDarkMode()">🌙 Dark/Light Mode</button>
+</header>
+
+<nav>
+    <a href="#infos">Infos</a>
+    <a href="#bewerbung">Bewerbung</a>
+    <a href="#einsatzberichte">Einsatzberichte</a>
+    <a href="#countdownSection">Countdown</a>
+    <a href="#galerie">Galerie</a>
+    <a href="#kontakt">Kontakt</a>
+</nav>
+
+<section id="infos">
+    <h2>Infos zur Berufsfeuerwehr</h2>
+    <p>Die Berufsfeuerwehr Teamstadt ist rund um die Uhr einsatzbereit und sorgt für die Sicherheit unserer Stadt. Wir retten Menschen, schützen Eigentum und leisten Hilfe in Notlagen.</p>
+    <ul>
+        <li>24/7 Einsatzbereitschaft</li>
+        <li>Moderne Ausrüstung</li>
+        <li>Professionelle Ausbildung</li>
+        <li>Teamarbeit und Zusammenhalt</li>
+    </ul>
+</section>
+
+<section id="bewerbung">
+    <h2>Bewerbung</h2>
+    <p>Du möchtest Teil unseres Teams werden? Dann fülle das Formular aus:</p>
+    <form id="bewerbungsForm">
+        <label>Name:<br><input type="text" name="name" required></label><br><br>
+        <label>Alter:<br><input type="number" name="alter" required></label><br><br>
+        <label>Erfahrung:<br><textarea name="erfahrung" rows="3"></textarea></label><br><br>
+        <label>Motivation:<br><textarea name="motivation" rows="3" required></textarea></label><br><br>
+        <button type="submit" class="button">Bewerben</button>
+    </form>
+    <p id="formMessage" style="color:green; font-weight:bold;"></p>
+</section>
+
+<section id="einsatzberichte">
+    <h2>Einsatzberichte</h2>
+    <p>Hier findest du die aktuellen Einsatzberichte:</p>
+    <ul id="einsatzListe"></ul>
+</section>
+
+<section id="countdownSection">
+    <h2>Nächster Einsatz / Übung in:</h2>
+    <p id="countdown"></p>
+</section>
+
+<section id="galerie">
+    <h2>Galerie</h2>
+    <div class="slider">
+        <img class="slides" src="https://via.placeholder.com/800x400?text=Einsatz+1" alt="Einsatz 1">
+        <img class="slides" src="https://via.placeholder.com/800x400?text=Einsatz+2" alt="Einsatz 2">
+        <img class="slides" src="https://via.placeholder.com/800x400?text=Fahrzeug" alt="Fahrzeug">
+    </div>
+</section>
+
+<section id="kontakt">
+    <h2>Kontakt</h2>
+    <p>Email: kontakt@teamstadt.de</p>
+    <p>Telefon: 01234 567890</p>
+</section>
+
+<footer>
+    &copy; 2025 Berufsfeuerwehr Teamstadt
+</footer>
+
+<script>
+    // Dark Mode
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark');
+    }
+
+    // Dynamische Einsatzberichte
+    const einsaetze = [
+        {datum:"12.08.2025", bericht:"Brand in der Innenstadt – alle Bewohner evakuiert, Brand gelöscht."},
+        {datum:"15.08.2025", bericht:"Verkehrsunfall auf der Hauptstraße – 3 Verletzte, Rettung durchgeführt."},
+        {datum:"16.08.2025", bericht:"Tierrettung – Katze vom Baum gerettet."}
+    ];
+    const einsatzListe = document.getElementById('einsatzListe');
+    einsaetze.forEach(e => {
+        const li = document.createElement('li');
+        li.textContent = `${e.datum}: ${e.bericht}`;
+        einsatzListe.appendChild(li);
+    });
+
+    // Bewerbungsformular
+    const form = document.getElementById('bewerbungsForm');
+    const msg = document.getElementById('formMessage');
+    form.addEventListener('submit', function(e){
+        e.preventDefault();
+        msg.textContent = "Vielen Dank für deine Bewerbung! Wir melden uns bald.";
+        form.reset();
+    });
+
+    // Countdown
+    const countdownEl = document.getElementById('countdown');
+    const zielDatum = new Date();
+    zielDatum.setHours(zielDatum.getHours() + 5); // 5 Stunden bis nächste Übung
+    function updateCountdown(){
+        const now = new Date().getTime();
+        const distance = zielDatum - now;
+        if(distance < 0){
+            countdownEl.textContent = "Übung/Einsatz läuft!";
+            return;
+        }
+        const h = Math.floor((distance % (1000*60*60*24))/(1000*60*60));
+        const m = Math.floor((distance % (1000*60*60))/(1000*60));
+        const s = Math.floor((distance % (1000*60))/1000);
+        countdownEl.textContent = `${h}h ${m}m ${s}s`;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Slider
+    let slideIndex = 0;
+    function showSlides() {
+        const slides = document.getElementsByClassName("slides");
+        for(let i=0;i<slides.length;i++){ slides[i].style.display="none"; }
+        slideIndex++;
+        if(slideIndex>slides.length){ slideIndex=1; }
+        slides[slideIndex-1].style.display="block";
+        setTimeout(showSlides,3000);
+    }
+    showSlides();
+</script>
+
+</body>
+</html>
